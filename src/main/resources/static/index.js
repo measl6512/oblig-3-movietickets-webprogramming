@@ -1,7 +1,7 @@
 let tickets = [];
-function showTickets(){
 
-    let buyTickets = document.getElementById("movies").value;
+function buyTickets() {
+    let buyTickets = document.getElementById("movie").value;
     let ticketAmount = document.getElementById("ticketAmount").value;
     let firstname = document.getElementById("firstname").value;
     let lastname = document.getElementById("lastname").value;
@@ -9,7 +9,7 @@ function showTickets(){
     let mail = document.getElementById("mail").value;
 
     const ticket = {
-        movies: buyTickets,
+        movie: buyTickets,
         ticketAmount: ticketAmount,
         firstname: firstname,
         lastname: lastname,
@@ -17,69 +17,21 @@ function showTickets(){
         mail: mail
     };
 
-    tickets.push(ticket);
-    showTickets();
+    // Validere billettopplysninger
+    let isValid = validateTicket(ticket);
 
-    document.getElementById("movies").value = "";
-    document.getElementById("ticketAmount").value = "";
-    document.getElementById("firstname").value = "";
-    document.getElementById("lastname").value = "";
-    document.getElementById("phonenumber").value = "";
-    document.getElementById("mail").value = "";
-
-    // Nullstill feilmeldinger
-    document.getElementById("choseMovieError").textContent = "";
-    document.getElementById("ticketAmountError").textContent = "";
-    document.getElementById("firstnameError").textContent = "";
-    document.getElementById("lastnameError").textContent = "";
-    document.getElementById("phonenumberError").textContent = "";
-    document.getElementById("mailError").textContent = "";
-
-    let isValid = true;
-
-    if (ticketAmount.trim() === "" || !Number(ticketAmount)) {
-        document.getElementById("ticketAmountError").textContent = "Write in the amount";
-        document.getElementById("ticketAmountError").style.color = "red";
-        isValid = false;
+    if (isValid) {
+        tickets.push(ticket);
+        showTickets();
+        clearInputs();
     }
-
-    if (firstname.trim() === "" || /\d/.test(firstname)) {
-        document.getElementById("firstnameError").textContent = "Write in first name";
-        document.getElementById("firstnameError").style.color = "red";
-        isValid = false;
-    }
-
-    if (lastname.trim() === "" || /\d/.test(lastname)) {
-        document.getElementById("lastnameError").textContent = "Write in last name";
-        document.getElementById("lastnameError").style.color = "red";
-        isValid = false;
-    }
-
-    if (phonenumber.trim() === "" || !Number(phonenumber) || phonenumber.length !==8) {
-        document.getElementById("phonenumberError").textContent = "Write in phonenumber";
-        document.getElementById("phonenumberError").style.color = "red";
-        isValid = false;
-    }
-
-    if (mail.trim() === "" || /\d/.test(mail)) {
-        document.getElementById("mailError").textContent = "Write in mail";
-        document.getElementById("mailError").style.color = "red";
-        isValid = false;
-    }
-
-    if (!isValid) {
-        // Avbryt billettkjøpet hvis validering mislykkes
-        return;
-    }
-
 }
 
-function ut(){
-
+function showTickets() {
     let printOut = "<table id='Receipt'><tr><th>Movie</th><th>Amount of tickets</th><th>First name</th><th>Last name</th><th>Phonenumber</th><th>Mail</th></tr>";
-    for(let i = 0; i < tickets.length; i++){
+    for (let i = 0; i < tickets.length; i++) {
         printOut += "<tr>";
-        printOut += "<td>" + tickets[i].movies + "</td>";
+        printOut += "<td>" + tickets[i].movie + "</td>";
         printOut += "<td>" + tickets[i].ticketAmount + "</td>";
         printOut += "<td>" + tickets[i].firstname + "</td>";
         printOut += "<td>" + tickets[i].lastname + "</td>";
@@ -90,12 +42,69 @@ function ut(){
 
     printOut += "</table>";
     document.getElementById("boughtTickets").innerHTML = printOut;
-
 }
 
-function deleteTickets(){
-    const table = document.getElementById('Receipt')
+function deleteTickets() {
     tickets = [];
-    console.log(tickets);
-    out;
+    showTickets(); // Oppdater visningen for å vise en tom tabell
+}
+
+function validateTicket(ticket) {
+    let isValid = true;
+
+    if (ticket.ticketAmount.trim() === "" || isNaN(ticket.ticketAmount) || parseInt(ticket.ticketAmount) <= 0) {
+        document.getElementById("ticketAmountError").textContent = "Please enter a valid ticket amount";
+        document.getElementById("ticketAmountError").style.color = "red";
+        isValid = false;
+    } else {
+        document.getElementById("ticketAmountError").textContent = "";
+    }
+
+    if (ticket.firstname.trim() === "" || /\d/.test(ticket.firstname)) {
+        document.getElementById("firstnameError").textContent = "Please enter a valid first name";
+        document.getElementById("firstnameError").style.color = "red";
+        isValid = false;
+    } else {
+        document.getElementById("firstnameError").textContent = "";
+    }
+
+    if (ticket.lastname.trim() === "" || /\d/.test(ticket.lastname)) {
+        document.getElementById("lastnameError").textContent = "Please enter a valid last name";
+        document.getElementById("lastnameError").style.color = "red";
+        isValid = false;
+    } else {
+        document.getElementById("lastnameError").textContent = "";
+    }
+
+    if (ticket.phonenumber.trim() === "" || isNaN(ticket.phonenumber) || ticket.phonenumber.length !== 8) {
+        document.getElementById("phonenumberError").textContent = "Please enter a valid phone number";
+        document.getElementById("phonenumberError").style.color = "red";
+        isValid = false;
+    } else {
+        document.getElementById("phonenumberError").textContent = "";
+    }
+
+    if (ticket.mail.trim() === "" || !validateEmail(ticket.mail)) {
+        document.getElementById("mailError").textContent = "Please enter a valid email address";
+        document.getElementById("mailError").style.color = "red";
+        isValid = false;
+    } else {
+        document.getElementById("mailError").textContent = "";
+    }
+
+    return isValid;
+}
+
+function validateEmail(email) {
+    // Forenklet e-postvalidering, kan utvides etter behov
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function clearInputs() {
+    document.getElementById("movie").value = "";
+    document.getElementById("ticketAmount").value = "";
+    document.getElementById("firstname").value = "";
+    document.getElementById("lastname").value = "";
+    document.getElementById("phonenumber").value = "";
+    document.getElementById("mail").value = "";
 }

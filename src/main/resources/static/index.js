@@ -8,7 +8,7 @@ function showTickets(){
     let phonenumber = document.getElementById("phonenumber").value;
     let mail = document.getElementById("mail").value;
 
-    const ticket1 = {
+    const ticket = {
         movies: buyTickets,
         ticketAmount: ticketAmount,
         firstname: firstname,
@@ -17,8 +17,8 @@ function showTickets(){
         mail: mail
     };
 
-    tickets.push(ticket1);
-    out();
+    tickets.push(ticket);
+    showTickets();
 
     document.getElementById("movies").value = "";
     document.getElementById("ticketAmount").value = "";

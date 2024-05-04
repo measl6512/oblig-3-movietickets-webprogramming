@@ -1,30 +1,27 @@
 package com.example.oblig3movieticketsdata1700;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class ticketsController {
     @Autowired
-    private ticketRepo rep;
+    private ticketRepo ticketRepo;
 
     @PostMapping("/save")
-    public void saveTickets(tickets ticket) {
-        rep.saveTickets(ticket);
+    public void saveTicket(@RequestBody tickets tickets) {
+        ticketRepo.saveTicket(tickets);
     }
 
     @GetMapping("/showTickets")
-    public List<tickets> showTicket(){
-        return rep.getAllTickets();
+    public List<tickets> showTickets(){
+        return ticketRepo.getAllTickets();
     }
 
-    @GetMapping("/deleteAllTickets")
+    @DeleteMapping("/deleteAllTickets")
     public void deleteAllTickets() {
-        rep.deleteAllTickets();
+        ticketRepo.deleteAllTickets();
     }
-
 }

@@ -9,21 +9,21 @@ import java.util.List;
 @Repository
 public class ticketRepo {
     @Autowired
-    private JdbcTemplate db;
+    private JdbcTemplate jdbcTemplate;
 
-    public void saveTickets(tickets ticket) {
-        String sql = "INSERT INTO Ticket (movie, amount, firstname, lastname, mail, phonenumber) VALUES(?,?,?,?,?,?)";
-        db.update(sql, ticket.getMovie(), ticket.getAmount(), ticket.getFirstname(), ticket.getLastname(), ticket.getMail(), ticket.getPhonenumber());
+    public void saveTicket(tickets tickets) {
+        String sql = "INSERT INTO tickets (movie, amount, firstname, lastname, mail, phonenumber) VALUES (?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, tickets.getMovie(), tickets.getAmount(), tickets.getFirstname(), tickets.getLastname(), tickets.getMail(), tickets.getPhonenumber());
     }
 
-    public List<tickets> getAllTickets(){
-        String sql ="SELECT * FROM Ticket";
-        List<tickets> allTickets = db.query(sql, new BeanPropertyRowMapper(tickets.class));
-        return allTickets;
+    public List<tickets> getAllTickets() {
+        String sql = "SELECT * FROM tickets";
+        List<tickets> tickets = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(tickets.class));
+        return tickets;
     }
 
-    public void deleteAllTickets(){
+    public void deleteAllTickets() {
         String sql = "DELETE FROM tickets";
-        db.update(sql);
+        jdbcTemplate.update(sql);
     }
 }

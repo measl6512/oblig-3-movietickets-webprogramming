@@ -6,21 +6,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class ticketsController {
+
     @Autowired
     private ticketRepo ticketRepo;
 
-    @PostMapping("/save")
+    @PostMapping("/tickets")
     public void saveTicket(@RequestBody tickets tickets) {
         ticketRepo.saveTicket(tickets);
     }
 
-    @GetMapping("/showTickets")
-    public List<tickets> showTickets(){
+    @GetMapping("/tickets")
+    public List<tickets> getAllTickets() {
         return ticketRepo.getAllTickets();
     }
 
-    @DeleteMapping("/deleteAllTickets")
+    @DeleteMapping("/tickets")
     public void deleteAllTickets() {
         ticketRepo.deleteAllTickets();
     }

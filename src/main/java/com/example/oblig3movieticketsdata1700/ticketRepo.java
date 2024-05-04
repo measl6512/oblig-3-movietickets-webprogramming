@@ -1,13 +1,14 @@
 package com.example.oblig3movieticketsdata1700;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 @Repository
 public class ticketRepo {
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -18,8 +19,7 @@ public class ticketRepo {
 
     public List<tickets> getAllTickets() {
         String sql = "SELECT * FROM tickets";
-        List<tickets> tickets = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(tickets.class));
-        return tickets;
+        return jdbcTemplate.query(sql, new ticketRowMapper());
     }
 
     public void deleteAllTickets() {

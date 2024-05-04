@@ -2,46 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Movie Tickets Purchase</title>
-    <script src="script.js"></script>
+    <title>Movie tickets</title>
 </head>
 <body>
-<h1>Purchase Movie Tickets</h1>
-<label for="movie">Choose a Movie:</label>
-<select id="movie">
-    <option value="chose-movie">Choose a movie</option>
-    <option value="Madame Web">Madame Web</option>
-    <option value="Bob Marley: One Love">Bob Marley: One Love</option>
-    <option value="The Worst Person in the World">The Worst Person in the World</option>
-    <option value="Finding Nemo">Finding Nemo</option>
-</select>
-<span id="choseMovieError" class="error"></span><br><br>
+<header>
+    <h1>Cinema Ticket Booking</h1>
+</header>
+<main>
+    <form id="ticket-form">
+        <div class="form-group">
+            <label>Book your Tickets</label>
+            <select id="movies" name="movie" required>
+                <option value="">Choose a movie</option>
+                <option value="Madame Webb">Madame Webb</option>
+                <option value="Batmsn">Batman</option>
+                <option value="Marvel: End Game">Marvel: End Game</option>
+                <option value="Bob Marley: One Love">Bob Marley: One Love</option>
+            </select>
 
-<label for="ticketAmount">Number of Tickets:</label>
-<input id="ticketAmount" type="number">
-<span id="ticketAmountError" class="error"></span><br><br>
+            <br><br>
 
-<label for="firstname">First Name:</label>
-<input id="firstname" type="text">
-<span id="firstnameError" class="error"></span><br><br>
+            <label for="ticketAmount">Amount of Tickets</label>
+            <input id="ticketAmount" type="number" min="1" required>
+            <span id="ticketAmountError" class="error"></span>
 
-<label for="lastname">Last Name:</label>
-<input id="lastname" type="text">
-<span id="lastnameError" class="error"></span><br><br>
+            <br><br>
 
-<label for="phonenumber">Phone Number:</label>
-<input id="phonenumber" type="tel">
-<span id="phonenumberError" class="error"></span><br><br>
+            <label for="firstname">First name</label>
+            <input id="firstname" type="text" pattern="[a-zA-Z]+" required>
+            <span id="firstnameError" class="error"></span>
 
-<label for="mail">Email:</label>
-<input id="mail" type="email">
-<span id="mailError" class="error"></span><br><br>
+            <br><br>
 
-<button onclick="buyTickets()">Buy Tickets</button>
+            <label for="lastname">Last name</label>
+            <input id="lastname" type="text" pattern="[a-zA-Z]+" required>
+            <span id="lastnameError" class="error"></span>
 
-<h2>All Tickets</h2>
-<div id="boughtTickets"></div><br>
+            <br><br>
 
-<button onclick="deleteAllTickets()">Delete All Tickets</button>
+            <label for="phonenumber">Phonenumber</label>
+            <input id="phonenumber" type="tel" pattern="[0-9]{8}" required>
+            <span id="phonenumberError" class="error"></span>
+
+            <br><br>
+
+            <label for="mail">Mail</label>
+            <input id="mail" type="email" required>
+            <span id="mailError" class="error"></span>
+        </div>
+
+        <br><br>
+
+        <button type="button" onclick="buyTickets()">Buy Ticket</button>
+    </form>
+    <section id="ticket-summary">
+        <h2>All tickets</h2>
+        <div id="boughtTickets"></div>
+        <button onclick="deleteAllTickets()">Delete All</button>
+    </section>
+    <br>
+</main>
+<script src="index.js"></script>
 </body>
 </html>
+

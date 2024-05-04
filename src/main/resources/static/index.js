@@ -96,7 +96,6 @@ function clearErrors() {
     document.getElementById("mailError").textContent = "";
 }
 
-// Optionally, if you want to ensure the script runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("movies").value = "";
     document.getElementById("ticketAmount").value = "";
